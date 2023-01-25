@@ -1,3 +1,24 @@
+
+import rawdata from './rawdata.txt'
+
+
+let fetchData = async () => {
+  let response = await fetch(rawdata);
+  let final = await response.text();
+  let data = final.split('\n').map(word => word.toUpperCase())
+  return data;
+}
+
+const data = fetchData();
+
+console.log(data)
+
+// const data = fs.readFileSync('src/rawdata.txt', {encoding: 'utf-8'})
+// .split('\n').map(word => word.toUpperCase())
+
+// console.log(data)
+
+
 export const WORDS = [
   'AGENT',
   'WORLD',
