@@ -9,6 +9,7 @@ import GameOver from '../GameOver/GameOver';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import WonBanner from '../WonBanner/WonBanner';
 import LostBanner from '../LostBanner/LostBanner';
+import Keyboard from '../Keyboard/Keyboard';
 
 // Pick a random word on every pageload.
 let answer = sample(WORDS);
@@ -20,6 +21,9 @@ function Game() {
   const [tentativeGuess, setTentativeGuess] = React.useState('');
   const [guesses, setGuesses] = React.useState([]);
   const [gameStatus, setGameStatus] = React.useState('running')
+  const [revealedLetters, setRevealedLetters] = React.useState({});
+
+  
 
   const handleGuessInput = (event) => {
     setTentativeGuess(event.target.value.toUpperCase())
@@ -53,6 +57,7 @@ function Game() {
     setGuesses([]);
     setTentativeGuess('')
     setGameStatus('running')
+    setRevealedLetters({})
   }
   
 
@@ -67,7 +72,8 @@ function Game() {
       handleGuessInput={handleGuessInput}
       handleSubmit={handleSubmitGuess}
       guess={tentativeGuess}
-    />
+      />
+    {gameStatus === 'running' && <Keyboard guess={tentativeGuess} handleGuessInput={setTentativeGuess} guesses={guesses} answer={answer} setRevealedLetters={setRevealedLetters} revealedLetters={revealedLetters}/>}  
     {gameStatus === 'won' && <WonBanner restart={handleRestartGame} numGuesses={guesses.length}/>}
     {gameStatus === 'lost' && <LostBanner restart={handleRestartGame} answer={answer}/>}
   </>
