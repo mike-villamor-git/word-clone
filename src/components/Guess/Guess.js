@@ -7,7 +7,7 @@ function Guess({guess, answer}) {
   
   if(guess !== undefined){
     result = checkGuess(guess, answer)
-    
+    console.log(result)
   }
   return (
     <p className="guess">
